@@ -139,7 +139,7 @@ def main():
 if "__main__" == __name__:
 
     # logger
-    logging.basicConfig(level=logging.DEBUG)  # INFO)
+    logging.basicConfig(level=logging.WARNING)
 
     # disable logging
     # logging.disable(sys.maxsize)
