@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-captura um video via openCV
+capture a time lapsed video using openCV 
 """
 # < imports >--------------------------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ def main():
     l_args = vars(l_ap.parse_args())
     logging.debug("args: %s.", str(l_args))
 
-    # data atual
+    # actual date
     ldt_date = datetime.datetime.now()
 
     # have output ?
@@ -61,13 +61,13 @@ def main():
         ls_output_fn = "movies/{}_{}".format(ls_hostname, ls_data)
         logging.debug("output_fn: %s.", str(ls_output_fn))
 
-    # senão,...
+    # otherwise,...
     else:
         # output video name
         ls_output_fn = l_args["output"]
         logging.debug("output_fn: %s.", str(ls_output_fn))
 
-    # intervalo dos frames em segundos
+    # frame interval in seconds
     li_interval = l_args["interval"]
     logging.debug("interval: %s.", str(li_interval))
 
@@ -75,7 +75,7 @@ def main():
     l_cap = cv2.VideoCapture(int(l_args["port"]))
     assert l_cap
 
-    # diminui a resolução
+    # low resolution
     l_cap.set(cv2.CAP_PROP_FRAME_WIDTH, int(l_args["width"]))
     l_cap.set(cv2.CAP_PROP_FRAME_HEIGHT, int(l_args["height"]))
 
@@ -97,12 +97,12 @@ def main():
     ldt_delta = ldt_date + datetime.timedelta(minutes=int(l_args["duracao"]))
     ldt_delta = ldt_delta.time()
 
-    # hora atual
+    # actual time
     ldt_hour = datetime.datetime.now().time()
 
-    # capture frames to video
+    # capture frames to video...
     while ldt_hour < ldt_delta:
-        # tempo inicial em segundos
+        # initial time in seconds
         lf_ini = time.time()
 
         # capture frame
@@ -117,15 +117,15 @@ def main():
             # write PNG file
             cv2.imwrite(ls_filename, l_frame)
 
-        # tempo final em segundos e cálculo do tempo decorrido
+        # final time in seconds and elapsed time
         lf_dif = time.time() - lf_ini
 
-        # está adiantado ?
+        # ahead of time ?
         if li_interval > lf_dif:
-            # permite o scheduler
+            # allow scheduler
             time.sleep(li_interval - lf_dif)
 
-        # hora atual
+        # actual time
         ldt_hour = datetime.datetime.now().time()
 
     # release videoWriter
