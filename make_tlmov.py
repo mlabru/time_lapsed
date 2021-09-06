@@ -58,7 +58,7 @@ def main():
         ls_data = datetime.datetime.strftime(ldt_date, "%Y-%m.%d")
 
         # output video name
-        ls_output_fn = "movies/{}_{}.mp4".format(ls_hostname, ls_data)
+        ls_output_fn = "movies/{}_{}".format(ls_hostname, ls_data)
         logging.debug("output_fn: %s.", str(ls_output_fn))
 
     # senão,...
@@ -86,7 +86,7 @@ def main():
     # create video codec, compression format, and color/pixel format
     l_fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     # create video writer
-    l_video = cv2.VideoWriter(ls_output_fn, l_fourcc, int(l_args["fps"]), lt_size)
+    l_video = cv2.VideoWriter(ls_output_fn + ".mp4", l_fourcc, int(l_args["fps"]), lt_size)
 
     # for low quality webcams...
     for _ in range(42):
